@@ -43,7 +43,7 @@ function NavbarHome() {
                 <NavDropdown.Item onClick={(e) => handleNav('/proproducts')} className='navbarproduct'>Home Loudspeaker</NavDropdown.Item>
               </NavDropdown>
               <Nav.Link onClick={(e)=>handleNav('/events/0')} className='navbar-links-link'>EVENT</Nav.Link>
-              <Nav.Link  className='navbar-links-link'>VIDEOS</Nav.Link>
+              <Nav.Link  className='navbar-links-link' onClick={(e)=>handleNav('/videos')}>VIDEOS</Nav.Link>
               <Nav.Link  className='navbar-links-link'>BLOG</Nav.Link>
               <NavDropdown title={<span style={{ color: 'white' }}>CONTACT</span>} id="navbarScrollingDropdown" className='navbar-links-link'>
                 <NavDropdown.Item href="#action/3.1">Contact Details</NavDropdown.Item>

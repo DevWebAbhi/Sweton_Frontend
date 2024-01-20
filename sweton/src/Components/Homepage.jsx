@@ -1,4 +1,5 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
+import Cookies from 'js-cookie';
 import '../Styles/homepagenavbar.css'
 import NavbarHome from './NavbarHome'
 import logonew from '../Assets/logonew.png'
@@ -16,6 +17,7 @@ import Testimonials from './Homepage Components/Testimonials'
 import Footer from './Footer'
 import certificate from '../Assets/certi.jpg'
 import {useNavigate} from 'react-router-dom'
+import axios from 'axios';
 import {
   Modal,
   ModalOverlay,
@@ -26,12 +28,29 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react'
 import { useDisclosure,Image } from '@chakra-ui/react'
+import { color } from 'framer-motion';
 const Homepage = () => {
 const navigation=useNavigate();
+const[buyColor,setBuyColor]=useState('red');
 const { isOpen, onOpen, onClose } = useDisclosure()
 function handleNavigationProLoudSpeaker(){
 navigation('/proproducts');
 }
+
+
+
+useEffect(() => {
+  const allCookies = Cookies.get();
+  console.log('All Cookies:', allCookies);
+ 
+  const intervalId = setInterval(() => {
+    setBuyColor((prevColor) => (prevColor === 'red' ? 'black' : 'red'));
+    
+  }, 900);
+
+  // Clear the interval when the component unmounts
+  return () => clearInterval(intervalId);
+}, []);
 
   return (
     <>
@@ -44,7 +63,7 @@ navigation('/proproducts');
       <button >APPLICATION FOR DELEARSHIP</button>
      </div>
      <Box width='max-content' margin='auto' padding='2.5rem'>
-      <button className='navbar-div-homepage-loudspeaker-buynow'  >BUY ONLINE</button>
+      <button className='navbar-div-homepage-loudspeaker-buynow' style={{backgroundColor:buyColor}}  >BUY ONLINE</button>
      </Box>
     </div>
   

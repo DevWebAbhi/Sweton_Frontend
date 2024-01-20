@@ -47,7 +47,7 @@ const CommonNavbar = ({headdingName}) => {
                 <NavDropdown.Item onClick={(e)=>handleNav('/proproducts')} className='navbarproduct1'>Home Loudspeaker</NavDropdown.Item>
               </NavDropdown>
               <Nav.Link onClick={(e)=>handleNav('/events/0')}  className='navbar-links-link1'>EVENT</Nav.Link>
-              <Nav.Link  className='navbar-links-link1'>VIDEOS</Nav.Link>
+              <Nav.Link  className='navbar-links-link1' onClick={(e)=>handleNav('/videos')}>VIDEOS</Nav.Link>
               <Nav.Link  className='navbar-links-link1'>BLOG</Nav.Link>
               <NavDropdown title={<span style={{ color: 'white' }}>CONTACT</span>} id="navbarScrollingDropdown" className='navbar-links-link1'>
                 <NavDropdown.Item className='navbar-links-link1'>Contact Details</NavDropdown.Item>

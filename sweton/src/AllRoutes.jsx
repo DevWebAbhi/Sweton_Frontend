@@ -11,6 +11,7 @@ import LegalDisclaimer from './Components/LegalDisclaimer';
 import About from './Components/About';
 import Checkout from './Components/Checkout';
 import EventsPage from './Components/EventsPage';
+import Videos from './Components/Videos';
 const AllRoutes = () => {
   return (
     <div>
@@ -25,6 +26,7 @@ const AllRoutes = () => {
         <Route path='/about' element={<About/>}/>
         <Route path='/checkout' element={<Checkout/>}/>
         <Route path='/events/:id' element={<EventsPage/>}/>
+        <Route path='/videos' element={<Videos/>}/>
       </Routes>
     </div>
   )

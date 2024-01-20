@@ -50,7 +50,7 @@ const EventsPage = () => {
        }
     useEffect(()=>{
         getData();
-        console.log(id,'hb dcksdbhci');
+        
     },[])
 
   
@@ -125,9 +125,7 @@ const EventsPage = () => {
               </Box>
             )
         ):(
-            <div className='events-page-main-div'>
-                Network Error
-            </div>
+            <Heading textAlign={'center'}>Network Error</Heading>
 
         )
       }

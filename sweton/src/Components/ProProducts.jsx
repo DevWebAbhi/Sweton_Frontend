@@ -6,6 +6,7 @@ import { Box,Button,Image } from '@chakra-ui/react'
 import {useNavigate} from 'react-router-dom';
 import Footer from './Footer';
 import {useDispatch,useSelector} from 'react-redux';
+import Cookies from 'js-cookie';
 import {
   AlertDialog,
   AlertDialogBody,
@@ -23,6 +24,7 @@ const ProProducts = () => {
   const navigate=useNavigate();
   const selector=useSelector(state=>state.productDetailsReducer);
   const dispatch=useDispatch();
+  const [alertMessage,setAlertMessage]=useState({message:"Added To Cart",quotes:'Thank You!'});
   const { isOpen, onOpen, onClose } = useDisclosure()
   const responsive = {
     superLargeDesktop: {
@@ -39,8 +41,8 @@ const ProProducts = () => {
 
   async function getData(){
     try {
-      const data=await axios.get('http://localhost:8080/proloud');
-      const serieses=await axios.get('http://localhost:8080/proSPKSeries');
+      const data=await axios.get(`${process.env.REACT_APP_URL}proloud`);
+      const serieses=await axios.get(`${process.env.REACT_APP_URL}proSPKSeries`);
       setData(data.data.data);
       setSeries(serieses.data.data);
     } catch (error) {
@@ -60,6 +62,40 @@ const ProProducts = () => {
     localStorage.setItem("seriesTypeProloudspeaker",`${e}`);
     navigate('/proproducts/series');
   }
+
+  async function handleCart(e){
+    console.log(e.target.id)
+
+    try {
+      const allCookies = Cookies.get();
+      if (allCookies['sweton-token-authentication-user']) {
+        const headers = {
+          'Authorization': allCookies['sweton-token-authentication-user']
+        };
+        console.log(e.target.id)
+        const post = await axios.post(`${process.env.REACT_APP_URL}cart/post`, {id:e.target.id}, { headers });
+       console.log(post)
+        if(post.data.data.msg=='not authorized'){
+          setAlertMessage({message:'Not Authenticated',quotes:'Try login again'});
+          onOpen();
+        }else if(post.data.data.msg=='authorized'){
+          console.log(post.data.data)
+          localStorage.setItem('seeton-web-cart',JSON.stringify(post.data.data));
+          setAlertMessage({message:'Added To Cart',quotes:'Thank You!'});
+          onOpen();
+        }
+      }else{
+        setAlertMessage({message:'Login First',quotes:'Thank You!'});
+        onOpen();
+      }
+      console.log('handleCart')
+    } catch (error) {
+      setAlertMessage({message:'Error Occured',quotes:'Try Login Again'});
+      onOpen();
+      console.log(error)
+    }
+  }
+
   return (
     <div>
       <CommonNavbar headdingName={"Pro Loudspeaker"}/>
@@ -206,7 +242,7 @@ const ProProducts = () => {
               <button className={idxd} onClick={handleDetailPageNavigation}>Read More</button>
             </div>
             <Box marginTop={'2rem'}>
-              <Button backgroundColor={'transparent'} padding={'0.3rem 0.4rem'} border={'1px solid red'} onClick={onOpen}>Add To Cart</Button>
+              <Button id={ex._id} backgroundColor={'transparent'} padding={'0.3rem 0.4rem'} border={'1px solid red'} onClick={handleCart}>Add To Cart</Button>
             </Box>
           </div>
         </div>
@@ -221,7 +257,7 @@ const ProProducts = () => {
         ))
       }
      <Footer/>
-     <Alerter isOpen={isOpen} onOpen={onOpen} onClose={onClose}/>
+     <Alerter isOpen={isOpen} onOpen={onOpen} onClose={onClose} message={alertMessage.message} quotes={alertMessage.quotes}/>
     </div>
   )
 }
@@ -231,7 +267,7 @@ const ProProducts = () => {
 export default ProProducts
 
 
-function Alerter({ isOpen, onOpen, onClose }){
+function Alerter({ isOpen, onOpen, onClose, message,quotes }){
   
   const cancelRef = React.useRef()
 
@@ -253,7 +289,7 @@ function Alerter({ isOpen, onOpen, onClose }){
         onClose={onClose}
       >
         <AlertDialogOverlay>
-          <AlertDialogContent width={'30%'}  margin={'auto'} marginTop={'2rem'} borderRadius={'0.3rem'} padding={'1rem'} backgroundColor={'#2ECC71'}>
+          <AlertDialogContent width={'60%'}  margin={'auto'} marginTop={'2rem'} borderRadius={'0.3rem'} padding={'1rem'} backgroundColor={'#2ECC71'}>
           <AlertDialogBody color={'white'} textAlign={'center'} fontSize={'2rem'}>
           
             </AlertDialogBody>
@@ -261,11 +297,11 @@ function Alerter({ isOpen, onOpen, onClose }){
             <AlertIcon boxSize='40px' mr={0} />
             </AlertDialogBody>
             <AlertDialogBody color={'white'} marginTop={'1.5rem'} textAlign={'center'} fontSize={'2rem'}>
-              Added To Cart
+              {message}
             </AlertDialogBody>
 
             <AlertDialogBody color={'white'} marginTop={'1rem'} textAlign={'center'} fontSize={'1.3rem'}>
-              Thank You!
+              {quotes}
             </AlertDialogBody>
 
             <AlertDialogFooter width={'min-content'} margin={'auto'}>

@@ -1,5 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDisclosure,Input,Button ,Box} from "@chakra-ui/react";
+import Cookies from 'js-cookie';
+import axios from "axios";
 import {
     Drawer,
     DrawerBody,
@@ -7,9 +9,11 @@ import {
     DrawerHeader,
     DrawerOverlay,
     DrawerContent,
-    DrawerCloseButton,
+   
   } from '@chakra-ui/react';
+ 
   import { useMediaQuery } from '@chakra-ui/react';
+import CartCard from "./CartCard";
 function DrawerRight({isDrawerRight,setDrawerRight}) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = React.useRef();
@@ -19,7 +23,42 @@ function DrawerRight({isDrawerRight,setDrawerRight}) {
     const [isSmallerThan400] = useMediaQuery("(max-width: 400px)");
   
     const modalWidth = isSmallerThan400?'85%':(isSmallerThan550?'75%':(isSmallerThan850?'65%':(isSmallerThan1000?'50%':'30%')));
-   useEffect(()=>{
+   const[error,setError]=useState(false);
+   const[loading,SetLoading]=useState(false);
+   const [data,setData]=useState([]);
+   
+   async function handleCart(){
+    
+
+    try {
+      SetLoading(true);
+      setError(false);
+      const allCookies = Cookies.get();
+      if (allCookies['sweton-token-authentication-user']) {
+        const headers = {
+          'Authorization': allCookies['sweton-token-authentication-user']
+        };
+        
+        const post = await axios.post(`${process.env.REACT_APP_URL}cart/post`, {id:'get'}, { headers });
+       console.log(post)
+        if(post.data.data.msg=='not authorized'){
+         console.log('not authorized');
+         SetLoading(false);
+         setError(true);
+        }else{
+          console.log(post.data.data)
+          setData(post.data.data);
+         SetLoading(false);
+        }
+      }
+      console.log('handleCart')
+    } catch (error) {
+     setError(true);
+      console.log(error)
+    }
+  }
+
+    useEffect(()=>{
     if(!isOpen){
         onClose();
         setDrawerRight(false);
@@ -28,7 +67,14 @@ function DrawerRight({isDrawerRight,setDrawerRight}) {
     onOpen();
    }
    
+
+
    },[isDrawerRight,isOpen])
+   useEffect(()=>{
+    let cartData=JSON.parse(localStorage.getItem("seeton-web-cart"));
+    console.log(cartData)
+    setData(cartData);
+   },[])
     return (
       <>
         
@@ -42,12 +88,19 @@ function DrawerRight({isDrawerRight,setDrawerRight}) {
         
       >
         <DrawerOverlay />
-        <DrawerContent backgroundColor={'white'}  maxW={modalWidth}   paddingLeft={'1rem'} borderLeft={'4px solid rgba(207,3,3)'}>
+        <DrawerContent backgroundColor={'white'}  maxW={modalWidth}   padding={'0.5rem'} borderLeft={'4px solid rgba(207,3,3)'}>
          
           <DrawerHeader fontSize='1.5rem' textAlign={'center'} >Cart Items</DrawerHeader>
 
-          <DrawerBody>
-            
+          <DrawerBody overflow={'scroll'} height={'80vh'}>
+          
+
+        {
+          !error?!loading?data.map(()=>(
+            <CartCard/>
+           )):'...Loading...':'...Error...'
+        }
+
           </DrawerBody>
 
           <DrawerFooter>
