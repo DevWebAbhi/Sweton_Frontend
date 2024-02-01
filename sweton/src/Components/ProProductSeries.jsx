@@ -48,8 +48,8 @@ const ProProductSeries = () => {
   
     async function getData(){
       try {
-        const data=await axios.get('http://localhost:8080/proloud');
-        const serieses=await axios.get('http://localhost:8080/proSPKSeries');
+        const data=await axios.get('https://sweton-clone-backend.onrender.com/proloud');
+        const serieses=await axios.get('https://sweton-clone-backend.onrender.com/proSPKSeries');
         setData(data.data.data);
         setSeries(serieses.data.data);
       } catch (error) {
@@ -78,7 +78,7 @@ const ProProductSeries = () => {
             'Authorization': allCookies['sweton-token-authentication-user']
           };
           console.log(e.target.id)
-          const post = await axios.post(`${process.env.REACT_APP_URL}cart/post`, {id:e.target.id}, { headers });
+          const post = await axios.post(`https://sweton-clone-backend.onrender.com/cart/post`, {id:e.target.id}, { headers });
          console.log(post)
           if(post.data.data.msg=='not authorized'){
             setAlertMessage({message:'Not Authenticated',quotes:'Try login again'});

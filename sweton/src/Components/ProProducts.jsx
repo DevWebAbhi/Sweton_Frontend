@@ -41,8 +41,8 @@ const ProProducts = () => {
 
   async function getData(){
     try {
-      const data=await axios.get(`${process.env.REACT_APP_URL}proloud`);
-      const serieses=await axios.get(`${process.env.REACT_APP_URL}proSPKSeries`);
+      const data=await axios.get(`https://sweton-clone-backend.onrender.com/proloud`);
+      const serieses=await axios.get(`https://sweton-clone-backend.onrender.com/proSPKSeries`);
       setData(data.data.data);
       setSeries(serieses.data.data);
     } catch (error) {

@@ -7,7 +7,7 @@ export const setEvents=(setLoading,setError)=>async(dispatch)=>{
     try {
         setError(false);
         setLoading(true);
-        const data=await axios.get(REACT_APP_URL+'events/');
+        const data=await axios.get(`https://sweton-clone-backend.onrender.com/events`);
         console.log(data.data.data);
         dispatch({type:SET_EVENTS,payload:data.data.data});
         setLoading(false);

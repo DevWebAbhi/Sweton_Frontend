@@ -39,7 +39,7 @@ const ProSPKCarausal = () => {
       try {
         setLoading(true);
         setError(false);
-        const data = await axios.get("http://localhost:8080/proSPKSeries");
+        const data = await axios.get("https://sweton-clone-backend.onrender.com/proSPKSeries");
       setData(data.data.data);
        
         console.log(data)

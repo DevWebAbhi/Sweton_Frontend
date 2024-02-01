@@ -23,7 +23,7 @@ const Testimonials = () => {
         try {
           setLoading(true);
           setError(false);
-            const data=await axios.get('http://localhost:8080/testimonials');
+            const data=await axios.get('https://sweton-clone-backend.onrender.com/testimonials');
             console.log(data);
             setTestimonials(data.data.data);
             setLoading(false);

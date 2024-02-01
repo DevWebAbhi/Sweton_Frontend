@@ -8,6 +8,7 @@ import "react-multi-carousel/lib/styles.css";
 import Skeleton from 'react-skeleton-loader';
 import { Box, Image, h1,Stack } from '@chakra-ui/react';
 const HmoeSPK = () => {
+  const REACT_APP_URL=process.env.REACT_APP_URL;
     const [Data, setData] = useState([]);
     const[loading,setLoading]=useState(false);
     const[error,setError]=useState(false);
@@ -39,7 +40,7 @@ const HmoeSPK = () => {
       try {
         setLoading(true);
         setError(false);
-        const data = await axios.get("http://localhost:8080/proSPKSeries");
+        const data = await axios.get(`https://sweton-clone-backend.onrender.com/proSPKSeries`);
       setData(data.data.data);
        
         console.log(data)

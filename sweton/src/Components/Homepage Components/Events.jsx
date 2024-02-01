@@ -57,7 +57,7 @@ const Events = () => {
         try {
           setLoading(true);
           setError(false);
-            const data= await axios.get('http://localhost:8080/events');
+            const data= await axios.get('https://sweton-clone-backend.onrender.com/events');
             console.log(data);
             setEvent(data.data.data);
             setLoading(false);
