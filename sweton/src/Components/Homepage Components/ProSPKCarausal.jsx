@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import pro from '../../Assets/pro.jpg';
 import ProductCard from './ProductCard';
-import { Box, Image, h1,Stack, Heading } from '@chakra-ui/react';
+import { Box, Image, h1,Stack, Heading,Skeleton } from '@chakra-ui/react';
 import axios from 'axios';
 import '../../Styles/proLoudSPK.css';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Skeleton from 'react-skeleton-loader';
+
 const ProSPKCarausal = () => {
     const [Data, setData] = useState([]);
     const[loading,setLoading]=useState(false);

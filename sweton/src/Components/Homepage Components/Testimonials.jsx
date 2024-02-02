@@ -4,8 +4,7 @@ import axios from 'axios';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import '../../Styles/Testimonials.css';
-import Skeleton from 'react-skeleton-loader';
-import { Box, Image, h1,Stack, Heading } from '@chakra-ui/react';
+import { Box, Image, h1,Stack, Heading,Skeleton } from '@chakra-ui/react';
 const Testimonials = () => {
     const[testimonials,setTestimonials]=useState([]);
     const[loading,setLoading]=useState(false);

@@ -6,9 +6,8 @@ import '../../Styles/Testimonials.css';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import EventCard from './EventCard';
-import Skeleton from 'react-skeleton-loader';
 import '../../Styles/proLoudSPK.css';
-import { Box, Image, h1,Stack } from '@chakra-ui/react';
+import { Box, Image, h1,Stack,Skeleton } from '@chakra-ui/react';
 const Events = () => {
     const[event,setEvent]=useState([]);
     const[loading,setLoading]=useState(false);

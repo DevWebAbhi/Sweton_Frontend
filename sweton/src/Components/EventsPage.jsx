@@ -4,8 +4,8 @@ import Footer from './Footer'
 import { setEvents } from '../Redux/EventReducer/action'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import Skeleton from 'react-skeleton-loader';
-import { useDisclosure } from '@chakra-ui/react';
+
+import { useDisclosure,Skeleton } from '@chakra-ui/react';
 import '../Styles/EventsPage.css'
 import {
     Modal,

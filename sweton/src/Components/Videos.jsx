@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import '../Styles/Videos.css'
 import { getVideos } from '../Redux/VideosReducer/action';
 import { useDispatch, useSelector } from 'react-redux';
-import Skeleton from 'react-skeleton-loader';
-import { Box, Heading } from '@chakra-ui/react';
+
+import { Box, Heading,Skeleton } from '@chakra-ui/react';
 import CommonNavbar from './CommonNavbar';
 import Footer from './Footer';
 import { useNavigate } from 'react-router-dom';

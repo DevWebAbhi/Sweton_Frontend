@@ -5,8 +5,8 @@ import axios from 'axios';
 import '../../Styles/proLoudSPK.css';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Skeleton from 'react-skeleton-loader';
-import { Box, Image, h1,Stack } from '@chakra-ui/react';
+
+import { Box, Image, h1,Stack ,Skeleton} from '@chakra-ui/react';
 const HmoeSPK = () => {
   const REACT_APP_URL=process.env.REACT_APP_URL;
     const [Data, setData] = useState([]);
@@ -83,13 +83,13 @@ const HmoeSPK = () => {
           !error?(
             loading?(
               <Box marginTop='2rem' >
-                <Skeleton widthRandomness='0' width='100%' height='3rem' />
-                <Skeleton widthRandomness='0' width='100%' height='3rem' />
-                <Skeleton widthRandomness='0'  width='100%' height='3rem' />
-                <Skeleton widthRandomness='0'  width='100%' height='3rem' />
-                <Skeleton widthRandomness='0'  width='100%' height='3rem' />
-                <Skeleton widthRandomness='0' width='100%' height='3rem' />
-                <Skeleton widthRandomness='0' width='100%' height='3rem' />
+                <Skeleton  width='100%' height='3rem' />
+                <Skeleton  width='100%' height='3rem' />
+                <Skeleton   width='100%' height='3rem' />
+                <Skeleton   width='100%' height='3rem' />
+                <Skeleton   width='100%' height='3rem' />
+                <Skeleton  width='100%' height='3rem' />
+                <Skeleton  width='100%' height='3rem' />
               </Box>
             ):(
               <Carousel
